@@ -1,0 +1,17 @@
+[Unit]
+Description=smarthome2_proj uWSGI app
+After=syslog.target
+
+[Service]
+ExecStart=/usr/local/bin/uwsgi \
+ --ini /home/smarthome2/smarthome2_proj/smarthome2_proj/uwsgi.ini
+User=smarthome2
+Group=www-data
+Restart=on-failure
+KillSignal=SIGQUIT
+Type=notify
+StandardError=syslog
+NotifyAccess=all
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,17 @@
+[Unit]
+Description=Paho MQTT client for Django
+#After=syslog.target
+After=network.target
+
+[Service]
+Type=simple
+User=smarthome2
+Group=smarthome2
+WorkingDirectory=/home/smarthome2/smarthome2_proj
+Environment="VIRTUAL_ENV=/home/smarthome2/smarthome2"
+Environment="PATH=$VIRTUAL_ENV/bin:$PATH"
+ExecStart=/home/smarthome2/smarthome2/bin/python -m mqtt.sub
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
