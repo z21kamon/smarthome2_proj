@@ -6,7 +6,7 @@ django.setup()
 from django.conf import settings
 from smarthome2_app.models import *
 from datetime import datetime as dt
-import json
+import json, requests
 
 publish_channels = ['home2/light/set_dimmer/data',
                     'home2/light/turning/status',
@@ -62,7 +62,8 @@ def on_message(client, userdata, msg):
             photo.write(msg.payload)
             photo.close()
         data = {'image': 'https://ms.newtonbox.ru/smarthome2/static/photo.jpg',
-                'date': dt.now()}
+                'type': 'door',
+                'date': dt.strftime(dt.now(), "%x")}
         send_push(data)
 
 
@@ -129,7 +130,8 @@ def on_message(client, userdata, msg):
         if msg.topic == 'home2/climate/water_sens/level':
             if value == 0:
                 data = {'msg': 'Критически низкий уровень воды в увлажнителе',
-                        'date': dt.now()}
+                        'type': '',
+                        'date': dt.strfime(dt.now(), "%x")}
                 send_push(data)
 
 
